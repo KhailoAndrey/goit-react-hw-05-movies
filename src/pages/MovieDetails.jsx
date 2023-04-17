@@ -18,20 +18,48 @@ const MovieDetails = () => {
     };
     fetchData();
   }, [movieId]);
-  const {
-    id,
-    title,
-    backdrop_path,
-    genres,
-    overview,
-    poster_path,
-    release_date,
-  } = movies;
-  const movieDate = new Date(release_date).getFullYear();
+
+
+  // const {
+  //   // id,
+  //   title,
+  //   poster_path,
+  //   genres,
+  //   overview,
+  //   release_date,
+  //   vote_average,
+  // } = movies;
+  const movieDate = new Date(movies.release_date).getFullYear();
   return (
     <>
-      <h1>{`${title} (${movieDate})`}</h1>
+      <div>
+        <img
+          src={
+            movies.poster_path
+              ? `https://image.tmdb.org/t/p/w200${movies.poster_path}`
+              : 'https://via.placeholder.com/185x278.png?text=No+Image'
+          }
+          alt=""
+        />
+        <div>
+          <h1>{`${movies.title} (${movieDate})`}</h1>
+          <p>User Score: {(movies.vote_average * 10).toFixed()}%</p>
+          <h2>Overview</h2>
+          {!movies.overview ? (
+            <p>No overview information found.</p>
+          ) : (
+            <p>{movies.overview}</p>
+          )}
+          <h2>Genres</h2>
+          {movies.genres.length === 0 ? (
+            <p>No information on genres was found.</p>
+          ) : (
+            <p>{movies.genres.map(genre => genre.name).join(', ')}</p>
+          )}
+        </div>
+      </div>
 
+      <h4>Additional information</h4>
       <ul>
         <li>
           <Link to="cast">Cast</Link>
