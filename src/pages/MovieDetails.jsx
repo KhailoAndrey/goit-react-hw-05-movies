@@ -1,24 +1,57 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Suspense, useEffect, useState } from 'react';
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
+import { TiArrowLeftThick } from 'react-icons/ti';
+
 
 const api_key = 'cbd8bb6ab7443496075b168356471aed';
 const url = `https://api.themoviedb.org/3/movie/`;
 
 const MovieDetails = () => {
   const { movieId } = useParams();
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState(null);
+  const location = useLocation();
+
+  const navigate = useNavigate();
+
+  const handleClick = () => navigate(location?.state?.from ?? '/');
 
   //   console.log(movieId);
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios(`${url}${movieId}?api_key=${api_key}`);
-      console.log(result.data);
-      setMovies(result.data);
+      try {
+        const result = await axios(`${url}${movieId}?api_key=${api_key}`);
+        console.log(result.data);
+        const {
+          title,
+          poster_path,
+          genres,
+          overview,
+          release_date,
+          vote_average,
+        } = result.data;
+        setMovies({
+          title,
+          poster_path,
+          genres,
+          overview,
+          release_date,
+          vote_average,
+        });
+      } catch (error) {
+        alert('Ooops... Something wrong...');
+        throw error;
+      }
     };
     fetchData();
   }, [movieId]);
-
+  console.log(movies);
 
   // const {
   //   // id,
@@ -29,9 +62,16 @@ const MovieDetails = () => {
   //   release_date,
   //   vote_average,
   // } = movies;
+  if (!movies) {
+    return <b>Loading...</b>;
+  }
   const movieDate = new Date(movies.release_date).getFullYear();
   return (
     <>
+      <button onClick={handleClick}>
+        <TiArrowLeftThick />
+        Go back
+      </button>
       <div>
         <img
           src={
@@ -58,7 +98,6 @@ const MovieDetails = () => {
           )}
         </div>
       </div>
-
       <h4>Additional information</h4>
       <ul>
         <li>
@@ -68,7 +107,10 @@ const MovieDetails = () => {
           <Link to="reviews">Reviews</Link>
         </li>
       </ul>
-      <Outlet />
+      <Suspense fallback={<b>Loading...</b>}>
+        <Outlet />
+      </Suspense>
+      ;
     </>
   );
 };
