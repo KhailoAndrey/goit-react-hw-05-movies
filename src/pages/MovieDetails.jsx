@@ -9,7 +9,6 @@ import {
 } from 'react-router-dom';
 import { TiArrowLeftThick } from 'react-icons/ti';
 
-
 const api_key = 'cbd8bb6ab7443496075b168356471aed';
 const url = `https://api.themoviedb.org/3/movie/`;
 
@@ -53,15 +52,6 @@ const MovieDetails = () => {
   }, [movieId]);
   console.log(movies);
 
-  // const {
-  //   // id,
-  //   title,
-  //   poster_path,
-  //   genres,
-  //   overview,
-  //   release_date,
-  //   vote_average,
-  // } = movies;
   if (!movies) {
     return <b>Loading...</b>;
   }
