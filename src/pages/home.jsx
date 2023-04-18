@@ -19,7 +19,9 @@ const Home = () => {
     };
     fetchData();
   }, []);
-  console.log(movies);
+  if (!movies) {
+    return <b>Loading...</b>;
+  }
   return (
     <div>
       <h1>Trending Today</h1>

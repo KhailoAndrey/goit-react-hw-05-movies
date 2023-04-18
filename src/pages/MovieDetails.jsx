@@ -1,12 +1,7 @@
 import axios from 'axios';
 import { Suspense, useEffect, useState } from 'react';
 import { TiArrowLeftThick } from 'react-icons/ti';
-import {
-  AddInfo,
-  ButtonBack,
-  MovieBlock,
-  MovieInfo,
-} from './MovieDetails.styled';
+import { AddInfo, ButtonBack, MovieBlock } from './MovieDetails.styled';
 import {
   Link,
   Outlet,
@@ -72,7 +67,7 @@ const MovieDetails = () => {
               ? `https://image.tmdb.org/t/p/w200${movies.poster_path}`
               : 'https://via.placeholder.com/185x278.png?text=No+Image'
           }
-          alt=""
+          alt={movies.title}
         />
         <div>
           <h1>{`${movies.title} (${movieDate})`}</h1>
@@ -102,7 +97,7 @@ const MovieDetails = () => {
           </li>
         </ul>
       </AddInfo>
-      <Suspense fallback={<b>Loading...</b>}>
+      <Suspense fallback={<b> Loading...</b>}>
         <Outlet />
       </Suspense>
       ;

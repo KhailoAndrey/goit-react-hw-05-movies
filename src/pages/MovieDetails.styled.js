@@ -19,4 +19,6 @@ export const ButtonBack = styled.button`
 
 export const AddInfo = styled.div`
   margin: 10px;
+  border: 2px solid #0af;
+  padding: 10px;
 `;
