@@ -8,7 +8,7 @@ export const MovieBlock = styled.div`
 `;
 
 export const ButtonBack = styled.button`
-  margin-left: 10px;
+  margin: 10px;
   border-radius: 8px;
   color: blue;
   background-color: grey;

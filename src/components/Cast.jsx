@@ -13,7 +13,6 @@ const Cast = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(`${url}${movieId}/credits?api_key=${api_key}`);
-      console.log(result.data.cast);
       setCast(result.data.cast);
     };
     fetchData();
