@@ -1,5 +1,12 @@
 import axios from 'axios';
 import { Suspense, useEffect, useState } from 'react';
+import { TiArrowLeftThick } from 'react-icons/ti';
+import {
+  AddInfo,
+  ButtonBack,
+  MovieBlock,
+  MovieInfo,
+} from './MovieDetails.styled';
 import {
   Link,
   Outlet,
@@ -7,7 +14,6 @@ import {
   useNavigate,
   useParams,
 } from 'react-router-dom';
-import { TiArrowLeftThick } from 'react-icons/ti';
 
 const api_key = 'cbd8bb6ab7443496075b168356471aed';
 const url = `https://api.themoviedb.org/3/movie/`;
@@ -21,12 +27,10 @@ const MovieDetails = () => {
 
   const handleClick = () => navigate(location?.state?.from ?? '/');
 
-  //   console.log(movieId);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const result = await axios(`${url}${movieId}?api_key=${api_key}`);
-        console.log(result.data);
         const {
           title,
           poster_path,
@@ -50,7 +54,6 @@ const MovieDetails = () => {
     };
     fetchData();
   }, [movieId]);
-  console.log(movies);
 
   if (!movies) {
     return <b>Loading...</b>;
@@ -58,11 +61,11 @@ const MovieDetails = () => {
   const movieDate = new Date(movies.release_date).getFullYear();
   return (
     <>
-      <button onClick={handleClick}>
+      <ButtonBack onClick={handleClick}>
         <TiArrowLeftThick />
         Go back
-      </button>
-      <div>
+      </ButtonBack>
+      <MovieBlock>
         <img
           src={
             movies.poster_path
@@ -87,16 +90,18 @@ const MovieDetails = () => {
             <p>{movies.genres.map(genre => genre.name).join(', ')}</p>
           )}
         </div>
-      </div>
-      <h4>Additional information</h4>
-      <ul>
-        <li>
-          <Link to="cast">Cast</Link>
-        </li>
-        <li>
-          <Link to="reviews">Reviews</Link>
-        </li>
-      </ul>
+      </MovieBlock>
+      <AddInfo>
+        <h4>Additional information</h4>
+        <ul>
+          <li>
+            <Link to="cast">Cast</Link>
+          </li>
+          <li>
+            <Link to="reviews">Reviews</Link>
+          </li>
+        </ul>
+      </AddInfo>
       <Suspense fallback={<b>Loading...</b>}>
         <Outlet />
       </Suspense>
