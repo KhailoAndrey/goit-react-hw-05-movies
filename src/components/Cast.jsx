@@ -21,6 +21,9 @@ const Cast = () => {
   if (!cast) {
     return <b>Loading...</b>;
   }
+  if (cast.length === 0) {
+    return <p>We don't have any information.</p>;
+  }
   return (
     <CastList>
       {cast.map(el => (
