@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { CastElement, CastList } from './Cast.styled';
+import { CastElement, CastImg, CastList } from './Cast.styled';
 
 // https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key=<<api_key>>
 const api_key = 'cbd8bb6ab7443496075b168356471aed';
@@ -26,9 +26,9 @@ const Cast = () => {
     <CastList>
       {cast.map(el => (
         <CastElement key={el.cast_id}>
-          <img
+          <CastImg
             src={
-              cast.profile_path
+              el.profile_path
                 ? `https://image.tmdb.org/t/p/w200${el.profile_path}`
                 : 'https://via.placeholder.com/100x150.png?text=No+Image'
             }

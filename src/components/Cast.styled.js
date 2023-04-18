@@ -13,3 +13,6 @@ export const CastList = styled.ul`
     list-style: none;
     width: calc(15% - 20px);
   `;
+
+export const CastImg = styled.img`
+  width: 100%;`
