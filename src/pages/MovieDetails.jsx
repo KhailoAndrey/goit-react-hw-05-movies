@@ -1,12 +1,11 @@
 import axios from 'axios';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { TiArrowLeftThick } from 'react-icons/ti';
 import { AddInfo, ButtonBack, MovieBlock } from './MovieDetails.styled';
 import {
   Link,
   Outlet,
   useLocation,
-  useNavigate,
   useParams,
 } from 'react-router-dom';
 
@@ -17,10 +16,7 @@ const MovieDetails = () => {
   const { movieId } = useParams();
   const [movies, setMovies] = useState(null);
   const location = useLocation();
-
-  const navigate = useNavigate();
-
-  const handleClick = () => navigate(location?.state?.from ?? '/');
+  const backLink = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,9 +52,11 @@ const MovieDetails = () => {
   const movieDate = new Date(movies.release_date).getFullYear();
   return (
     <>
-      <ButtonBack onClick={handleClick}>
+      <ButtonBack>
+        <Link to={backLink.current}>
         <TiArrowLeftThick />
         Go back
+        </Link>
       </ButtonBack>
       <MovieBlock>
         <img
@@ -99,8 +97,7 @@ const MovieDetails = () => {
       </AddInfo>
       <Suspense fallback={<b> Loading...</b>}>
         <Outlet />
-      </Suspense>
-      ;
+      </Suspense>      
     </>
   );
 };

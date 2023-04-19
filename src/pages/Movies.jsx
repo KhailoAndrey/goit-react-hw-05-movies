@@ -24,7 +24,8 @@ const Movies = () => {
         `${url}api_key=${api_key}&query=${searchQuery}`
       );
       if (result.data.results.length !== 0) {
-        setMovies(result.data.results);
+        const searchArr = result.data.results.map(({id, title}) => ({id, title}))
+        setMovies(searchArr);
       } else {
         alert('Nothing found.');
         setQuery('');

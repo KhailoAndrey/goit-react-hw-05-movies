@@ -16,13 +16,20 @@ const Home = () => {
   const [movies, setMovies] = useState([]);
   const [searchPeriod, setSearchPeriod] = useState('day');
 
+
   const handlePeriod = () => {
     if (searchPeriod === 'day') {
       setSearchPeriod('week');
-    } else setSearchPeriod('day');
+      localStorage.setItem('searchPeriod', 'week')
+    } else {setSearchPeriod('day')
+    localStorage.setItem('searchPeriod', 'day')
+    };
   };
 
   useEffect(() => {
+    if (localStorage.getItem) {
+      setSearchPeriod(localStorage.getItem('searchPeriod'));
+    }
     const fetchData = async () => {
       const result = await axios(`${url}${searchPeriod}?api_key=${api_key}`);
       const movieArr = result.data.results.map(
