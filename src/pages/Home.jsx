@@ -20,7 +20,6 @@ const Home = () => {
     if (searchPeriod === 'day') {
       setSearchPeriod('week');
     } else setSearchPeriod('day');
-    console.log(searchPeriod);
   };
 
   useEffect(() => {
