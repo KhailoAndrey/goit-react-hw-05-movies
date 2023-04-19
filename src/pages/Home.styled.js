@@ -18,3 +18,15 @@ export const MovieList = styled.ul`
   padding: 0;
   justify-content: space-between;
 `;
+
+export const ChooseText = styled.p`
+margin: 20px;
+font-weight: 500;
+`
+
+export const ChooseBtn = styled.button`
+margin-left: 20px;
+font-size: 14px;
+font-weight: 600;
+background-color: greenyellow;
+`
