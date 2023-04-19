@@ -27,9 +27,9 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem) {
+    if (localStorage.getItem('searchPeriod')) {
       setSearchPeriod(localStorage.getItem('searchPeriod'));
-    }
+    } 
     const fetchData = async () => {
       const result = await axios(`${url}${searchPeriod}?api_key=${api_key}`);
       const movieArr = result.data.results.map(
@@ -50,7 +50,7 @@ const Home = () => {
     <div>
       <ChooseText>Choose period for trending film:</ChooseText>
       <ChooseBtn onClick={handlePeriod}>Day/Week</ChooseBtn>
-      <TitleHome>Trending for 1 {searchPeriod}</TitleHome>
+      <TitleHome>Trending for {searchPeriod}</TitleHome>
       <MovieList>
         {movies.map(movie => (
           <MovieItem key={movie.id}>
